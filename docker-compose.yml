@@ -1,0 +1,15 @@
+# Use root/example as user/password credentials
+version: '3.1'
+
+services:
+
+  mongo:
+    image: mongo:4.4.15
+    ports:
+      - 27017:27017
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: themartian
+      MONGO_INITDB_ROOT_PASSWORD: somewhereinthesky
+    volumes:
+      - './data:/data/db'
