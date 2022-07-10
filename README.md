@@ -10,30 +10,75 @@ cd node-martian-robots
 npm i
 ```
 
-## Execute tests
+## Run tests
 
 ```
 npm run test
 ```
 
-## Execute linter
+## Run linter
 
 ```
 npm run lint
 ```
 
-## Run in dev mode
+## Run project in "dev" mode
 
 ```
 docker-compose up -d
-(or edit the .env file to stablish a different MongoDB configuration)
+(or edit the .env file to stablish a custom MongoDB configuration)
 
 npm run dev
 ```
 
-## Build project
+## Build and run project
 
 ```
 npm run build
 npm start
+```
+
+## Endpoints
+
+### GET /mission
+
+It return the status server.
+
+### GET /mission/historical
+
+It return the historical missions data.
+
+### POST /mission
+
+It allow to send a new mission.
+
+Request format:
+
+```
+{
+  "FieldSurface": ["5 3"],
+  "MissionCommands": [
+    ["1 1 E RFRFRFRF"],
+    ["3 2 N FRRFLLFFRRFLL"],
+    ["0 3 W LLFFFRFLFL"]
+  ]
+}
+```
+
+Response format:
+
+```
+{
+    "MissionResult": [
+        [
+            "1 1 E"
+        ],
+        [
+            "3 3 N LOST"
+        ],
+        [
+            "4 2 N"
+        ]
+    ]
+}
 ```

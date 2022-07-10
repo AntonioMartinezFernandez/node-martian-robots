@@ -6,7 +6,7 @@ import {
   MONGODB_USER,
   MONGODB_PASSWORD,
   MONGODB_DBNAME,
-} from '@src/config/environment';
+} from '@config/environment';
 
 export const mongodbConnect = async () => {
   await mongoose.connect(

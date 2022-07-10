@@ -7,7 +7,12 @@
     "moduleResolution": "node",
     "baseUrl": "./src",
     "paths": {
-      "@src/*": ["*"]
+      "@src/*": ["*"],
+      "@config/*": ["config/*"],
+      "@domain/*": ["domain/*"],
+      "@app/*": ["app/*"],
+      "@infra/*": ["infra/*"],
+      "@db/*": ["db/*"]
     },
     "typeRoots": ["node_modules/@types"],
     "resolveJsonModule": true,

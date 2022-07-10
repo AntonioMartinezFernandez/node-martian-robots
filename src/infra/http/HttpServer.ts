@@ -1,14 +1,15 @@
-import { HTTP_PORT } from '@src/config/environment';
+import { HTTP_PORT } from '@config/environment';
 
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import hpp from 'hpp';
 import compression from 'compression';
+import { address } from 'ip';
 
-import { mongodbConnect } from '@src/infra/persistence/MongoDB/mongodbConnector';
+import { mongodbConnect } from '@db/MongoDB/mongodbConnector';
 
-import RobotsRouter from './routes/RobotRouter';
+import MissionRouter from '@infra/http/routes/MissionRouter';
 
 export class HttpServer {
   private server: express.Application;
@@ -34,7 +35,15 @@ export class HttpServer {
   }
 
   loadRoutes() {
-    this.server.use('/', new RobotsRouter().router);
+    this.server.use('/', new MissionRouter().router);
+
+    this.server.use(
+      '*',
+      function (req: express.Request, res: express.Response) {
+        res.sendStatus(404);
+      },
+    );
+
     console.log('Routes loaded...');
   }
 
@@ -50,9 +59,9 @@ export class HttpServer {
     }
 
     this.server.listen(HTTP_PORT, () => {
-      console.log(`\n========= Martian Robots =========`);
-      console.log(` 🚀 Server listening on port ${HTTP_PORT}`);
-      console.log(`==================================`);
+      console.log(`\n================ Martian Robots =================`);
+      console.log(` 🚀 Server listening on http://${address()}:${HTTP_PORT}`);
+      console.log(`=================================================`);
     });
   }
 }
