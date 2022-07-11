@@ -26,3 +26,8 @@ export type finalRobotLocation = [string];
 export interface missionResult {
   MissionResult: finalRobotLocation[];
 }
+
+export interface IMissionData {
+  mission: mission;
+  missionResults: finalRobotLocation[];
+}

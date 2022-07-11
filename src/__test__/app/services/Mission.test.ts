@@ -1,5 +1,6 @@
-import { mission, missionResult, planetSurface } from '@domain/types';
-import { Mission } from '@src/app/services/Mission';
+import { mission, missionResult, planetSurface } from '@domain/entities/types';
+import { Mission } from '@app/services/Mission';
+import { MemoryMissionRepo } from '@app/repositories/MemoryMissionRepo';
 
 const maxSurface: planetSurface = [50, 50];
 
@@ -18,7 +19,11 @@ describe('Mission service', () => {
       MissionResult: [['1 1 E'], ['3 3 N LOST'], ['4 2 N']],
     };
 
-    const sut = await new Mission(maxSurface, missionData).execute();
+    const sut = await new Mission(
+      maxSurface,
+      missionData,
+      new MemoryMissionRepo(),
+    ).execute();
     expect(sut).toEqual(testResult);
   });
 
@@ -28,7 +33,11 @@ describe('Mission service', () => {
       MissionCommands: [['1 1 E RFLF']],
     };
 
-    const sut = await new Mission(maxSurface, missionData).execute();
+    const sut = await new Mission(
+      maxSurface,
+      missionData,
+      new MemoryMissionRepo(),
+    ).execute();
     expect(sut).toEqual(new Error('Surface width out of range'));
   });
 
@@ -38,7 +47,11 @@ describe('Mission service', () => {
       MissionCommands: [['1 1 E RFLF']],
     };
 
-    const sut = await new Mission(maxSurface, missionData).execute();
+    const sut = await new Mission(
+      maxSurface,
+      missionData,
+      new MemoryMissionRepo(),
+    ).execute();
     expect(sut).toEqual(new Error('Surface width out of range'));
   });
 
@@ -48,7 +61,11 @@ describe('Mission service', () => {
       MissionCommands: [['1 1 E RFLF']],
     };
 
-    const sut = await new Mission(maxSurface, missionData).execute();
+    const sut = await new Mission(
+      maxSurface,
+      missionData,
+      new MemoryMissionRepo(),
+    ).execute();
     expect(sut).toEqual(new Error('Surface length out of range'));
   });
 
@@ -58,7 +75,11 @@ describe('Mission service', () => {
       MissionCommands: [['1 1 E RFLF']],
     };
 
-    const sut = await new Mission(maxSurface, missionData).execute();
+    const sut = await new Mission(
+      maxSurface,
+      missionData,
+      new MemoryMissionRepo(),
+    ).execute();
     expect(sut).toEqual(new Error('Surface length out of range'));
   });
 
@@ -68,7 +89,11 @@ describe('Mission service', () => {
       MissionCommands: [['-1 1 E RFLF']],
     };
 
-    const sut = await new Mission(maxSurface, missionData).execute();
+    const sut = await new Mission(
+      maxSurface,
+      missionData,
+      new MemoryMissionRepo(),
+    ).execute();
     expect(sut).toEqual(new Error('Invalid initial robot position value'));
   });
 
@@ -78,7 +103,11 @@ describe('Mission service', () => {
       MissionCommands: [['1 -1 E RFLF']],
     };
 
-    const sut = await new Mission(maxSurface, missionData).execute();
+    const sut = await new Mission(
+      maxSurface,
+      missionData,
+      new MemoryMissionRepo(),
+    ).execute();
     expect(sut).toEqual(new Error('Invalid initial robot position value'));
   });
 
@@ -88,7 +117,11 @@ describe('Mission service', () => {
       MissionCommands: [['51 25 S RFLF']],
     };
 
-    const sut = await new Mission(maxSurface, missionData).execute();
+    const sut = await new Mission(
+      maxSurface,
+      missionData,
+      new MemoryMissionRepo(),
+    ).execute();
     expect(sut).toEqual(new Error('Invalid initial robot position value'));
   });
 
@@ -98,7 +131,11 @@ describe('Mission service', () => {
       MissionCommands: [['25 51 E RFLF']],
     };
 
-    const sut = await new Mission(maxSurface, missionData).execute();
+    const sut = await new Mission(
+      maxSurface,
+      missionData,
+      new MemoryMissionRepo(),
+    ).execute();
     expect(sut).toEqual(new Error('Invalid initial robot position value'));
   });
 
@@ -108,7 +145,11 @@ describe('Mission service', () => {
       MissionCommands: [['25 25 A RFLF']],
     };
 
-    const sut = await new Mission(maxSurface, missionData).execute();
+    const sut = await new Mission(
+      maxSurface,
+      missionData,
+      new MemoryMissionRepo(),
+    ).execute();
     expect(sut).toEqual(new Error('Invalid robot orientation value'));
   });
 
@@ -118,7 +159,11 @@ describe('Mission service', () => {
       MissionCommands: [['25 25 W RFLFA']],
     };
 
-    const sut = await new Mission(maxSurface, missionData).execute();
+    const sut = await new Mission(
+      maxSurface,
+      missionData,
+      new MemoryMissionRepo(),
+    ).execute();
     expect(sut).toEqual(new Error('Invalid robot command value'));
   });
 });

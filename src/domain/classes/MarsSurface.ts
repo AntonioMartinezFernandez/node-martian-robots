@@ -1,5 +1,5 @@
 import { ISurface } from '@domain/entities/ISurface';
-import { surfaceSize, planetSurface } from '@domain/types';
+import { surfaceSize, planetSurface } from '@domain/entities/types';
 
 export class MarsSurface implements ISurface {
   private _minX = 0;

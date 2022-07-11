@@ -1,19 +1,21 @@
 import { IMission } from '@domain/entities/IMission';
 import { MarsSurface } from '@domain/classes/MarsSurface';
 import { Robot } from '@domain/classes/Robot';
-import { RobotCommand } from '@src/domain/classes/RobotCommand';
+import { RobotCommand } from '@domain/classes/RobotCommand';
 import {
   finalRobotLocation,
   mission,
   parsedRobot,
   planetSurface,
   missionResult,
-} from '@domain/types';
+} from '@src/domain/entities/types';
+import { IMissionRepo } from '@src/domain/entities/IMissionRepo';
 
 export class Mission implements IMission {
   constructor(
     private readonly _maxSurface: planetSurface,
     private readonly _mission: mission,
+    private readonly _repo: IMissionRepo,
   ) {}
 
   public async execute(): Promise<missionResult | Error> {
@@ -58,8 +60,11 @@ export class Mission implements IMission {
       return errors[0];
     }
 
-    //TODO Save mission and results to database
-    //! console.log(JSON.stringify({ mission: this._mission, missionResults }));
+    try {
+      this._repo.save({ mission: this._mission, missionResults });
+    } catch (error) {
+      console.log(error);
+    }
 
     const result: missionResult = { MissionResult: missionResults };
     return result;

@@ -15,5 +15,5 @@ const server = new HttpServer();
 
 server.config();
 server.loadRoutes();
-//server.mongoDB();
+server.mongoDB();
 server.start();

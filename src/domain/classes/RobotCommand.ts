@@ -4,7 +4,7 @@ import {
   parsedRobot,
   finalRobotLocation,
   robotOrientation,
-} from '@domain/types';
+} from '@domain/entities/types';
 
 export class RobotCommand implements IRobotCommand {
   private _surfaceX: number;

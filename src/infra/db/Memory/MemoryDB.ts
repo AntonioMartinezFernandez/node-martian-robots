@@ -1,5 +1,5 @@
+import { mission, missionResult } from '@domain/entities/types';
 import { Uuid } from '@infra/utils/Uuid';
-import { mission, missionResult } from '@src/domain/types';
 
 export class MemoryDB {
   private _data: any[] = [];

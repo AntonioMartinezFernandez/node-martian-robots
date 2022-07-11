@@ -1,5 +1,9 @@
 import { IRobot } from '@domain/entities/IRobot';
-import { missionCommands, parsedRobot, robotPosition } from '@domain/types';
+import {
+  missionCommands,
+  parsedRobot,
+  robotPosition,
+} from '@domain/entities/types';
 
 export class Robot implements IRobot {
   private _parsedRobotCommand: parsedRobot | Error;

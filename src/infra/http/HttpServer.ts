@@ -7,7 +7,7 @@ import hpp from 'hpp';
 import compression from 'compression';
 import { address } from 'ip';
 
-import { mongodbConnect } from '@db/MongoDB/mongodbConnector';
+import { mongodbConnect } from '@infra/db/MongoDB/mongodbConnector';
 
 import MissionRouter from '@infra/http/routes/MissionRouter';
 
@@ -49,13 +49,7 @@ export class HttpServer {
 
   async start() {
     if (this.connectMongoDB) {
-      try {
-        await mongodbConnect();
-        console.log('MongoDB connected...');
-      } catch (err) {
-        console.log('MongoDB error...');
-        console.log(err);
-      }
+      await mongodbConnect();
     }
 
     this.server.listen(HTTP_PORT, () => {

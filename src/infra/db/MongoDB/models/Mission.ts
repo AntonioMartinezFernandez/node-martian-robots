@@ -1,6 +1,6 @@
 import { model, Schema, Document } from 'mongoose';
 
-const userSchema: Schema = new Schema({
+const missionSchema: Schema = new Schema({
   id: {
     type: String,
     required: true,
@@ -12,17 +12,17 @@ const userSchema: Schema = new Schema({
   },
   input: {
     FieldSurface: {
-      type: [Number],
+      type: Array,
     },
     MissionCommands: {
-      type: [String],
+      type: Array,
     },
   },
   output: {
     MissionResult: {
-      type: [[String]],
+      type: [Array],
     },
   },
 });
 
-export const userModel = model<Document>('User', userSchema);
+export const missionModel = model<Document>('Mission', missionSchema);

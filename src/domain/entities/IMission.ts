@@ -1,4 +1,4 @@
-import { missionResult } from '../types';
+import { missionResult } from './types';
 
 export interface IMission {
   execute(): Promise<missionResult | Error>;

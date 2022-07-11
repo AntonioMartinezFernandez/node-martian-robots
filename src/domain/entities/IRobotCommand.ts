@@ -1,4 +1,4 @@
-import { finalRobotLocation } from '@domain/types';
+import { finalRobotLocation } from '@domain/entities/types';
 
 export interface IRobotCommand {
   calculateFinalRobotLocation(): finalRobotLocation;
