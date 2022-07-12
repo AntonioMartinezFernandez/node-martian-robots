@@ -39,3 +39,15 @@ export interface IMissionData {
   mission: mission;
   missionResults: finalRobotLocation[];
 }
+
+export interface IMissionRegister {
+  id: string;
+  date: Date;
+  input: {
+    FieldSurface: string[];
+    MissionCommands: string[][];
+  };
+  output: {
+    MissionResult: string[][];
+  };
+}

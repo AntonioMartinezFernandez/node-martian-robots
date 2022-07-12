@@ -1,15 +1,13 @@
 import { IHistorical } from '@domain/entities/IHistorical';
 import { IMissionRepo } from '@domain/entities/IMissionRepo';
-import { MongodbMissionRepo } from '@app/repositories/MongodbMissionRepo';
+import { IMissionRegister } from '@domain/entities/types';
 
 export class Historical implements IHistorical {
-  constructor(
-    private readonly _repo: IMissionRepo = new MongodbMissionRepo(),
-  ) {}
+  constructor(private readonly _DBrepository: IMissionRepo) {}
 
-  async getData() {
+  async getData(): Promise<IMissionRegister[] | Error> {
     try {
-      return await this._repo.findAll();
+      return await this._DBrepository.findAll();
     } catch (error) {
       return new Error('Error retrieving mission data from database');
     }

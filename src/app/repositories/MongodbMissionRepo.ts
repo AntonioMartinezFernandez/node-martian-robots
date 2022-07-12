@@ -1,5 +1,5 @@
 import { IMissionRepo } from '@domain/entities/IMissionRepo';
-import { IMissionData } from '@domain/entities/types';
+import { IMissionData, IMissionRegister } from '@domain/entities/types';
 import { missionModel } from '@infra/db/MongoDB/models/Mission';
 import { Uuid } from '@infra/utils/Uuid';
 
@@ -9,11 +9,14 @@ export class MongodbMissionRepo implements IMissionRepo {
     private readonly _missionModel = missionModel,
   ) {}
 
-  async save(missionData: IMissionData): Promise<IMissionData | Error> {
+  async save(
+    missionData: IMissionData,
+    actualDate = new Date(),
+  ): Promise<IMissionRegister | Error> {
     try {
-      const data = {
+      const data: IMissionRegister = {
         id: this._uuid.generate(),
-        date: new Date(),
+        date: actualDate,
         input: {
           FieldSurface: missionData.mission.FieldSurface as string[],
           MissionCommands: missionData.mission.MissionCommands as string[][],
@@ -23,14 +26,14 @@ export class MongodbMissionRepo implements IMissionRepo {
 
       await this._missionModel.create(data);
 
-      return missionData;
+      return data;
     } catch (error) {
       console.log(error);
       return new Error('Error saving mission data on database');
     }
   }
 
-  async findAll(): Promise<any[] | Error> {
+  async findAll(): Promise<IMissionRegister[] | Error> {
     try {
       return await this._missionModel
         .find({}, '-_id id date input output')

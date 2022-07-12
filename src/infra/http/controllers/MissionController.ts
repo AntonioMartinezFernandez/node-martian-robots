@@ -43,7 +43,7 @@ export class MissionController extends BaseController {
 
   public historicalData = async (req: Request, res: Response) => {
     try {
-      const result = await new Historical().getData();
+      const result = await new Historical(new MongodbMissionRepo()).getData();
 
       if (result instanceof Error) {
         this.handleResponse(res, 500, { error: result.message });

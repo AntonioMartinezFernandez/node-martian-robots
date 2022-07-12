@@ -1,6 +1,9 @@
-import { IMissionData } from './types';
+import { IMissionData, IMissionRegister } from './types';
 
 export interface IMissionRepo {
-  save(missionData: IMissionData): Promise<IMissionData | Error>;
-  findAll(): Promise<any[] | Error>;
+  save(
+    missionData: IMissionData,
+    actualDate?: Date,
+  ): Promise<IMissionRegister | Error>;
+  findAll(): Promise<IMissionRegister[] | Error>;
 }

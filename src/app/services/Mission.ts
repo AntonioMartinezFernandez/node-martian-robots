@@ -15,7 +15,7 @@ export class Mission implements IMission {
   constructor(
     private readonly _surfaceLimits: planetSurface,
     private readonly _mission: mission,
-    private readonly _repo: IMissionRepo,
+    private readonly _DBrepository: IMissionRepo,
   ) {}
 
   public async execute(): Promise<missionResult | Error> {
@@ -69,7 +69,7 @@ export class Mission implements IMission {
     }
 
     try {
-      this._repo.save({ mission: this._mission, missionResults });
+      this._DBrepository.save({ mission: this._mission, missionResults });
     } catch (error) {
       console.error(error);
     }

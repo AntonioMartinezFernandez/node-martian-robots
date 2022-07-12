@@ -1,3 +1,5 @@
+import { IMissionRegister } from './types';
+
 export interface IHistorical {
-  getData(): Promise<any[] | Error>;
+  getData(): Promise<IMissionRegister[] | Error>;
 }
