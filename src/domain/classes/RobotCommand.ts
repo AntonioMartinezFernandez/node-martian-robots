@@ -7,8 +7,10 @@ import {
 } from '@domain/entities/types';
 
 export class RobotCommand implements IRobotCommand {
-  private _surfaceX: number;
-  private _surfaceY: number;
+  private _minSurfaceX: number;
+  private _minSurfaceY: number;
+  private _maxSurfaceX: number;
+  private _maxSurfaceY: number;
   private _robotPositionX: number;
   private _robotPositionY: number;
   private _robotOrientation: robotOrientation;
@@ -16,8 +18,10 @@ export class RobotCommand implements IRobotCommand {
   private _robotState = '';
 
   constructor(surface: planetSurface, robot: parsedRobot) {
-    this._surfaceX = surface[0];
-    this._surfaceY = surface[1];
+    this._minSurfaceX = surface[0];
+    this._minSurfaceY = surface[1];
+    this._maxSurfaceX = surface[2];
+    this._maxSurfaceY = surface[3];
     this._robotPositionX = robot.position[0];
     this._robotPositionY = robot.position[1];
     this._robotOrientation = robot.orientation;
@@ -39,7 +43,8 @@ export class RobotCommand implements IRobotCommand {
           break;
       }
 
-      if (this._robotState !== '') {
+      if (this._robotState === 'LOST') {
+        this._robotState = ' ' + this._robotState;
         break;
       }
     }
@@ -90,24 +95,24 @@ export class RobotCommand implements IRobotCommand {
   private goForward() {
     switch (this._robotOrientation) {
       case 'N':
-        this._robotPositionY < this._surfaceY
+        this._robotPositionY < this._maxSurfaceY
           ? this._robotPositionY++
-          : (this._robotState = ' LOST');
+          : (this._robotState = 'LOST');
         break;
       case 'S':
-        this._robotPositionY > 0
+        this._robotPositionY > this._minSurfaceY
           ? this._robotPositionY--
-          : (this._robotState = ' LOST');
+          : (this._robotState = 'LOST');
         break;
       case 'E':
-        this._robotPositionX < this._surfaceX
+        this._robotPositionX < this._maxSurfaceX
           ? this._robotPositionX++
-          : (this._robotState = ' LOST');
+          : (this._robotState = 'LOST');
         break;
       case 'W':
-        this._robotPositionX > 0
+        this._robotPositionX > this._minSurfaceX
           ? this._robotPositionX--
-          : (this._robotState = ' LOST');
+          : (this._robotState = 'LOST');
         break;
       default:
         break;

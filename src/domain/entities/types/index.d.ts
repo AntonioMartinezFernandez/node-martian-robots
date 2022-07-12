@@ -2,7 +2,7 @@ export type surfaceSize = [string];
 
 export type missionCommands = [string, string];
 
-export type planetSurface = [number, number];
+export type planetSurface = [number, number, number, number];
 
 export interface mission {
   FieldSurface: surfaceSize;

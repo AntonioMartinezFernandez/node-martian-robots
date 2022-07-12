@@ -13,14 +13,14 @@ import { IMissionRepo } from '@src/domain/entities/IMissionRepo';
 
 export class Mission implements IMission {
   constructor(
-    private readonly _maxSurface: planetSurface,
+    private readonly _surfaceLimits: planetSurface,
     private readonly _mission: mission,
     private readonly _repo: IMissionRepo,
   ) {}
 
   public async execute(): Promise<missionResult | Error> {
     const surface = new MarsSurface(
-      this._maxSurface,
+      this._surfaceLimits,
       this._mission.FieldSurface,
     ).build();
     if (surface instanceof Error) return new Error(surface.message);
@@ -43,10 +43,10 @@ export class Mission implements IMission {
     const missionResults: finalRobotLocation[] = [];
     robotCommands.forEach((robotCommand) => {
       if (
-        robotCommand.position[0] < 0 ||
-        robotCommand.position[0] > surface[0] ||
-        robotCommand.position[1] < 0 ||
-        robotCommand.position[1] > surface[1]
+        robotCommand.position[0] < surface[0] ||
+        robotCommand.position[0] > surface[2] ||
+        robotCommand.position[1] < surface[1] ||
+        robotCommand.position[1] > surface[3]
       ) {
         errors.push(new Error('Invalid initial robot position value'));
       }

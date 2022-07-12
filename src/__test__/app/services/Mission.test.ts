@@ -2,7 +2,7 @@ import { mission, missionResult, planetSurface } from '@domain/entities/types';
 import { Mission } from '@app/services/Mission';
 import { MemoryMissionRepo } from '@app/repositories/MemoryMissionRepo';
 
-const maxSurface: planetSurface = [50, 50];
+const maxSurface: planetSurface = [0, 0, 50, 50];
 
 describe('Mission service', () => {
   it('should return [["1 1 E"],["3 3 N LOST"],["4 2 N"]]', async () => {
@@ -39,6 +39,20 @@ describe('Mission service', () => {
       new MemoryMissionRepo(),
     ).execute();
     expect(sut).toEqual(new Error('Surface width out of range'));
+  });
+
+  it('should return surface limits error', async () => {
+    const missionData: mission = {
+      FieldSurface: ['3'],
+      MissionCommands: [['1 1 E', 'RFLF']],
+    };
+
+    const sut = await new Mission(
+      maxSurface,
+      missionData,
+      new MemoryMissionRepo(),
+    ).execute();
+    expect(sut).toEqual(new Error('Invalid mission surface coordinates'));
   });
 
   it('should return surface width error', async () => {

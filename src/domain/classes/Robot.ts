@@ -19,12 +19,7 @@ export class Robot implements IRobot {
       parseInt(initialRobotPosition[0]),
       parseInt(initialRobotPosition[1]),
     ];
-    if (
-      isNaN(position[0]) ||
-      isNaN(position[1]) ||
-      position[0] < 0 ||
-      position[1] < 0
-    ) {
+    if (isNaN(position[0]) || isNaN(position[1])) {
       return new Error('Invalid initial robot position value');
     }
 

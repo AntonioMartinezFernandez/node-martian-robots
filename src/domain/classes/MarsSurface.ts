@@ -2,36 +2,40 @@ import { ISurface } from '@domain/entities/ISurface';
 import { surfaceSize, planetSurface } from '@domain/entities/types';
 
 export class MarsSurface implements ISurface {
-  private _minX = 0;
-  private _minY = 0;
+  private _minX;
+  private _minY;
   private _maxX;
   private _maxY;
 
   constructor(
-    maxSurfaceSize: planetSurface,
+    surfaceLimits: planetSurface,
     private readonly _surfaceSize: surfaceSize,
   ) {
-    this._maxX = maxSurfaceSize[0];
-    this._maxY = maxSurfaceSize[1];
+    this._minX = surfaceLimits[0];
+    this._minY = surfaceLimits[1];
+    this._maxX = surfaceLimits[2];
+    this._maxY = surfaceLimits[3];
   }
 
   public build(): planetSurface | Error {
     const surfaceSize = this._surfaceSize[0].split(' ');
 
     const surface: planetSurface = [
+      this._minX,
+      this._minY,
       parseInt(surfaceSize[0]),
       parseInt(surfaceSize[1]),
     ];
 
-    if (!surface[0] || !surface[1]) {
-      return new Error('Invalid surface coordinates');
+    if (!surface[2] || !surface[3]) {
+      return new Error('Invalid mission surface coordinates');
     }
 
-    if (surface[0] < this._minX || surface[0] > this._maxX) {
+    if (surface[2] < this._minX || surface[2] > this._maxX) {
       return new Error('Surface width out of range');
     }
 
-    if (surface[1] < this._minY || surface[1] > this._maxY) {
+    if (surface[3] < this._minY || surface[3] > this._maxY) {
       return new Error('Surface length out of range');
     }
 

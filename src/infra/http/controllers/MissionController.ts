@@ -17,7 +17,7 @@ export class MissionController extends BaseController {
 
   public sendMission = async (req: Request, res: Response) => {
     try {
-      const maxSurface: planetSurface = [50, 50];
+      const maxSurface: planetSurface = [0, 0, 50, 50];
 
       const result = await new Mission(
         maxSurface,
