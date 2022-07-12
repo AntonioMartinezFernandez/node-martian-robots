@@ -138,9 +138,6 @@ export class RobotCommand implements IRobotCommand {
   private isSmellCommand(): boolean {
     const actualCommand = `${this._robotPositionX} ${this._robotPositionY} ${this._robotOrientation}`;
 
-    // console.log(this._smellCommands);
-    // console.log(actualCommand);
-
     const findSmellCommand = this._smellCommands.find(
       (command) => command === actualCommand,
     );

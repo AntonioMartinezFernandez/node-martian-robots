@@ -9,7 +9,11 @@ export class BaseController {
     res.status(httpError.status).json({ error: httpError.message });
   }
 
-  handleResponse(res: Response, status: number, content: Record<string, any>) {
+  handleResponse(
+    res: Response,
+    status: number,
+    content: Record<string, unknown>,
+  ) {
     res.status(status).json(content);
   }
 }

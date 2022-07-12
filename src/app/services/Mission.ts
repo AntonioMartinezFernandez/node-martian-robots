@@ -71,7 +71,7 @@ export class Mission implements IMission {
     try {
       this._repo.save({ mission: this._mission, missionResults });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
 
     const result: missionResult = { MissionResult: missionResults };
