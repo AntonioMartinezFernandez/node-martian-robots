@@ -1,3 +1,4 @@
+import { APP_MAX_COORDINATE_VALUE } from '@config/environment';
 import { ISurface } from '@domain/entities/ISurface';
 import { surfaceSize, planetSurface } from '@domain/entities/types';
 
@@ -31,11 +32,19 @@ export class MarsSurface implements ISurface {
       return new Error('Invalid mission surface coordinates');
     }
 
-    if (surface[2] < this._minX || surface[2] > this._maxX) {
+    if (
+      surface[2] < this._minX ||
+      surface[2] > this._maxX ||
+      this._maxX > parseInt(APP_MAX_COORDINATE_VALUE)
+    ) {
       return new Error('Surface width out of range');
     }
 
-    if (surface[3] < this._minY || surface[3] > this._maxY) {
+    if (
+      surface[3] < this._minY ||
+      surface[3] > this._maxY ||
+      this._maxY > parseInt(APP_MAX_COORDINATE_VALUE)
+    ) {
       return new Error('Surface length out of range');
     }
 

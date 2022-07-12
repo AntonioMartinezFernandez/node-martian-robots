@@ -1,15 +1,14 @@
 import { HTTP_PORT } from '@config/environment';
 
+import MissionRouter from '@infra/http/routes/MissionRouter';
+import { mongodbConnect } from '@infra/db/MongoDB/mongodbConnector';
+
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import hpp from 'hpp';
 import compression from 'compression';
 import { address } from 'ip';
-
-import { mongodbConnect } from '@infra/db/MongoDB/mongodbConnector';
-
-import MissionRouter from '@infra/http/routes/MissionRouter';
 
 export class HttpServer {
   private server: express.Application;
@@ -25,7 +24,16 @@ export class HttpServer {
   }
 
   config() {
-    this.server.use(express.json());
+    this.server.use((req, res, next) => {
+      express.json()(req, res, (err) => {
+        if (err) {
+          console.error(err);
+          return res.sendStatus(400);
+        }
+        next();
+      });
+    });
+
     this.server.use(cors());
     this.server.use(helmet());
     this.server.use(hpp());

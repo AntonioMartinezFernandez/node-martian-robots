@@ -1,5 +1,5 @@
-import { Response } from 'express';
 import { HttpException } from '@infra/http/exceptions/HttpException';
+import { Response } from 'express';
 
 export class BaseController {
   handleError(error: unknown, res: Response) {

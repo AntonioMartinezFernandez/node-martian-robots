@@ -33,6 +33,7 @@ export class Mission implements IMission {
 
     this._mission.MissionCommands.forEach((robot) => {
       const parsedRobotCommand = new Robot(robot).getParsedRobotCommand();
+
       if (parsedRobotCommand instanceof Error) {
         errors.push(parsedRobotCommand);
       } else {
@@ -41,6 +42,7 @@ export class Mission implements IMission {
     });
 
     const missionResults: finalRobotLocation[] = [];
+    const smellCommands: string[] = [];
     robotCommands.forEach((robotCommand) => {
       if (
         robotCommand.position[0] < surface[0] ||
@@ -51,9 +53,15 @@ export class Mission implements IMission {
         errors.push(new Error('Invalid initial robot position value'));
       }
 
-      missionResults.push(
-        new RobotCommand(surface, robotCommand).calculateFinalRobotLocation(),
-      );
+      const missionResult = new RobotCommand(
+        surface,
+        robotCommand,
+        smellCommands,
+      ).calculateFinalRobotLocation();
+
+      if (missionResult.smellCommand)
+        smellCommands.push(missionResult.smellCommand);
+      missionResults.push(missionResult.finalRobotLocation);
     });
 
     if (errors.length > 0) {

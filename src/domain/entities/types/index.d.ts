@@ -2,7 +2,15 @@ export type surfaceSize = [string];
 
 export type missionCommands = [string, string];
 
-export type planetSurface = [number, number, number, number];
+export type minX = number;
+
+export type minY = number;
+
+export type maxX = number;
+
+export type maxY = number;
+
+export type planetSurface = [minX, minY, maxX, maxY];
 
 export interface mission {
   FieldSurface: surfaceSize;

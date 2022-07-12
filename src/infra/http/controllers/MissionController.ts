@@ -17,11 +17,17 @@ export class MissionController extends BaseController {
 
   public sendMission = async (req: Request, res: Response) => {
     try {
+      //* Default maximum planet surface [minX, minY, maxX, maxY]
       const maxSurface: planetSurface = [0, 0, 50, 50];
+
+      const { FieldSurface, MissionCommands } = req.body;
 
       const result = await new Mission(
         maxSurface,
-        req.body,
+        {
+          FieldSurface,
+          MissionCommands,
+        },
         new MongodbMissionRepo(),
       ).execute();
 

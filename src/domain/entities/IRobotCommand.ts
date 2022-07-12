@@ -1,5 +1,8 @@
 import { finalRobotLocation } from '@domain/entities/types';
 
 export interface IRobotCommand {
-  calculateFinalRobotLocation(): finalRobotLocation;
+  calculateFinalRobotLocation(): {
+    finalRobotLocation: finalRobotLocation;
+    smellCommand?: string;
+  };
 }

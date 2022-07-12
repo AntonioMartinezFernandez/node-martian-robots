@@ -27,6 +27,57 @@ describe('Mission service', () => {
     expect(sut).toEqual(testResult);
   });
 
+  it('should return [["1 1 E"],["3 3 N LOST"], ["3 2 N"],["4 2 N"]]', async () => {
+    const missionData: mission = {
+      FieldSurface: ['5 3'],
+      MissionCommands: [
+        ['1 1 E', 'RFRFRFRF'],
+        ['3 2 N', 'FRRFLLFFRRFLL'],
+        ['3 2 N', 'FRRFLLFFRRFLL'],
+        ['0 3 W', 'LLFFFRFLFL'],
+      ],
+    };
+
+    const testResult: missionResult = {
+      MissionResult: [['1 1 E'], ['3 3 N LOST'], ['3 2 N'], ['4 2 N']],
+    };
+
+    const sut = await new Mission(
+      maxSurface,
+      missionData,
+      new MemoryMissionRepo(),
+    ).execute();
+    expect(sut).toEqual(testResult);
+  });
+
+  it('should return planet surface error', async () => {
+    const missionData: mission = {
+      FieldSurface: ['50 50'],
+      MissionCommands: [['1 1 E', 'RFLF']],
+    };
+
+    const sut = await new Mission(
+      [0, 0, 51, 50],
+      missionData,
+      new MemoryMissionRepo(),
+    ).execute();
+    expect(sut).toEqual(new Error('Surface width out of range'));
+  });
+
+  it('should return planet surface error', async () => {
+    const missionData: mission = {
+      FieldSurface: ['50 50'],
+      MissionCommands: [['1 1 E', 'RFLF']],
+    };
+
+    const sut = await new Mission(
+      [0, 0, 50, 51],
+      missionData,
+      new MemoryMissionRepo(),
+    ).execute();
+    expect(sut).toEqual(new Error('Surface length out of range'));
+  });
+
   it('should return surface width error', async () => {
     const missionData: mission = {
       FieldSurface: ['51 3'],
@@ -179,5 +230,24 @@ describe('Mission service', () => {
       new MemoryMissionRepo(),
     ).execute();
     expect(sut).toEqual(new Error('Invalid robot command value'));
+  });
+
+  it('should return command too long error', async () => {
+    const missionData: mission = {
+      FieldSurface: ['50 50'],
+      MissionCommands: [
+        [
+          '25 25 W',
+          'LLLLLLLLRRRRLLLLLLLLLLLLLLLLLLFFFFLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL',
+        ],
+      ],
+    };
+
+    const sut = await new Mission(
+      maxSurface,
+      missionData,
+      new MemoryMissionRepo(),
+    ).execute();
+    expect(sut).toEqual(new Error('Command too long'));
   });
 });

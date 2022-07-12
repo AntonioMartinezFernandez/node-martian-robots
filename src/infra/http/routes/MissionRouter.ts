@@ -1,5 +1,5 @@
+import { MissionController } from '@infra/http/controllers/MissionController';
 import { Router } from 'express';
-import { MissionController } from '@src/infra/http/controllers/MissionController';
 
 export default class MissionRouter {
   public path = '/mission';
