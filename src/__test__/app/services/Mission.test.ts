@@ -9,9 +9,9 @@ describe('Mission service', () => {
     const missionData: mission = {
       FieldSurface: ['5 3'],
       MissionCommands: [
-        ['1 1 E RFRFRFRF'],
-        ['3 2 N FRRFLLFFRRFLL'],
-        ['0 3 W LLFFFRFLFL'],
+        ['1 1 E', 'RFRFRFRF'],
+        ['3 2 N', 'FRRFLLFFRRFLL'],
+        ['0 3 W', 'LLFFFRFLFL'],
       ],
     };
 
@@ -30,7 +30,7 @@ describe('Mission service', () => {
   it('should return surface width error', async () => {
     const missionData: mission = {
       FieldSurface: ['51 3'],
-      MissionCommands: [['1 1 E RFLF']],
+      MissionCommands: [['1 1 E', 'RFLF']],
     };
 
     const sut = await new Mission(
@@ -44,7 +44,7 @@ describe('Mission service', () => {
   it('should return surface width error', async () => {
     const missionData: mission = {
       FieldSurface: ['-1 3'],
-      MissionCommands: [['1 1 E RFLF']],
+      MissionCommands: [['1 1 E', 'RFLF']],
     };
 
     const sut = await new Mission(
@@ -58,7 +58,7 @@ describe('Mission service', () => {
   it('should return surface length error', async () => {
     const missionData: mission = {
       FieldSurface: ['4 51'],
-      MissionCommands: [['1 1 E RFLF']],
+      MissionCommands: [['1 1 E', 'RFLF']],
     };
 
     const sut = await new Mission(
@@ -72,7 +72,7 @@ describe('Mission service', () => {
   it('should return surface length error', async () => {
     const missionData: mission = {
       FieldSurface: ['4 -1'],
-      MissionCommands: [['1 1 E RFLF']],
+      MissionCommands: [['1 1 E', 'RFLF']],
     };
 
     const sut = await new Mission(
@@ -86,7 +86,7 @@ describe('Mission service', () => {
   it('should return initial robot position error', async () => {
     const missionData: mission = {
       FieldSurface: ['50 50'],
-      MissionCommands: [['-1 1 E RFLF']],
+      MissionCommands: [['-1 1 E', 'RFLF']],
     };
 
     const sut = await new Mission(
@@ -100,7 +100,7 @@ describe('Mission service', () => {
   it('should return initial robot position error', async () => {
     const missionData: mission = {
       FieldSurface: ['50 50'],
-      MissionCommands: [['1 -1 E RFLF']],
+      MissionCommands: [['1 -1 E', 'RFLF']],
     };
 
     const sut = await new Mission(
@@ -114,7 +114,7 @@ describe('Mission service', () => {
   it('should return initial robot position error', async () => {
     const missionData: mission = {
       FieldSurface: ['50 50'],
-      MissionCommands: [['51 25 S RFLF']],
+      MissionCommands: [['51 25 S', 'RFLF']],
     };
 
     const sut = await new Mission(
@@ -128,7 +128,7 @@ describe('Mission service', () => {
   it('should return initial robot position error', async () => {
     const missionData: mission = {
       FieldSurface: ['50 50'],
-      MissionCommands: [['25 51 E RFLF']],
+      MissionCommands: [['25 51 E', 'RFLF']],
     };
 
     const sut = await new Mission(
@@ -142,7 +142,7 @@ describe('Mission service', () => {
   it('should return invalid command value error', async () => {
     const missionData: mission = {
       FieldSurface: ['50 50'],
-      MissionCommands: [['25 25 A RFLF']],
+      MissionCommands: [['25 25 A', 'RFLF']],
     };
 
     const sut = await new Mission(
@@ -156,7 +156,7 @@ describe('Mission service', () => {
   it('should return invalid command value error', async () => {
     const missionData: mission = {
       FieldSurface: ['50 50'],
-      MissionCommands: [['25 25 W RFLFA']],
+      MissionCommands: [['25 25 W', 'RFLFA']],
     };
 
     const sut = await new Mission(

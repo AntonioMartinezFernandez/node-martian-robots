@@ -13,11 +13,11 @@ export class Robot implements IRobot {
   }
 
   private parseCommand(): parsedRobot | Error {
-    const robotCommand = this._missionCommand[0].split(' ');
+    const initialRobotPosition = this._missionCommand[0].split(' ');
 
     const position: robotPosition = [
-      parseInt(robotCommand[0]),
-      parseInt(robotCommand[1]),
+      parseInt(initialRobotPosition[0]),
+      parseInt(initialRobotPosition[1]),
     ];
     if (
       isNaN(position[0]) ||
@@ -28,7 +28,7 @@ export class Robot implements IRobot {
       return new Error('Invalid initial robot position value');
     }
 
-    const orientation = robotCommand[2];
+    const orientation = initialRobotPosition[2];
     if (
       orientation !== 'N' &&
       orientation !== 'S' &&
@@ -38,7 +38,7 @@ export class Robot implements IRobot {
       return new Error('Invalid robot orientation value');
     }
 
-    const command = robotCommand[3];
+    const command = this._missionCommand[1];
     for (let i = 0; i < command.length; i++) {
       if (command[i] !== 'R' && command[i] !== 'L' && command[i] !== 'F')
         return new Error('Invalid robot command value');

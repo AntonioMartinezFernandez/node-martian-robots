@@ -58,9 +58,9 @@ Request format:
 {
   "FieldSurface": ["5 3"],
   "MissionCommands": [
-    ["1 1 E RFRFRFRF"],
-    ["3 2 N FRRFLLFFRRFLL"],
-    ["0 3 W LLFFFRFLFL"]
+    ["1 1 E", "RFRFRFRF"],
+    ["3 2 N", "FRRFLLFFRRFLL"],
+    ["0 3 W", "LLFFFRFLFL"]
   ]
 }
 ```

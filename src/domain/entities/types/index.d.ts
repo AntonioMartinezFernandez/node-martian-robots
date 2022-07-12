@@ -1,6 +1,6 @@
 export type surfaceSize = [string];
 
-export type missionCommands = [string];
+export type missionCommands = [string, string];
 
 export type planetSurface = [number, number];
 
