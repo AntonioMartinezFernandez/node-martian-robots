@@ -1,6 +1,22 @@
 # node-martian-robots
 
-"Martian Robots" challenge with NodeJS
+"Martian Robots" challenge with NodeJS.
+
+Features:
+
+- Developed following SOLID principles
+- Developed following Clean Architecture principles
+- The app works with the example proposed in the challenge description
+- Minimum use of third party libraries
+- Unit and integration tests
+- Application run as a REST API
+- Persistence layer implemented with MongoDB and OnMemory
+- Shipped with Docker
+
+Requisites:
+
+- NodeJS
+- Docker & Docker compose
 
 ## Clone and install project
 
