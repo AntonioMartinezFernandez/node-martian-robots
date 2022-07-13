@@ -36,7 +36,6 @@ describe('Historical service', () => {
 
     expect(newMission).toEqual({
       id: expect.stringMatching(uuidRegex),
-      //date: expect.stringMatching(dateRegex),
       date: actualDate,
       input: {
         FieldSurface: ['5 3'],

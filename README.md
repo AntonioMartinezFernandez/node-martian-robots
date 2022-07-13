@@ -22,33 +22,23 @@ npm run test
 npm run lint
 ```
 
-## Run project in "dev" mode
+## Run app (with Docker)
 
 ```
-docker-compose up -d
-(or edit the .env file to stablish a custom MongoDB configuration)
-
-npm run dev
-```
-
-## Build and run project
-
-```
-npm run build
-npm start
+docker compose up
 ```
 
 ## Endpoints
 
-### GET /mission
+### GET http://localhost:3000/mission
 
 It return the status server.
 
-### GET /mission/historical
+### GET http://localhost:3000/mission/historical
 
 It return the historical missions data.
 
-### POST /mission
+### POST http://localhost:3000/mission
 
 It allow to send a new mission.
 

@@ -1,15 +1,39 @@
-# Use root/example as user/password credentials
 version: '3.1'
 
 services:
-
-  mongo:
-    image: mongo:4.4.15
-    ports:
-      - 27017:27017
+  martian-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - mongodb
+    container_name: martian-app
     restart: unless-stopped
+    env_file: .env
     environment:
-      MONGO_INITDB_ROOT_USERNAME: themartian
-      MONGO_INITDB_ROOT_PASSWORD: somewhereinthesky
-    volumes:
-      - './data:/data/db'
+      - MONGO_USERNAME=$MONGODB_USER
+      - MONGO_PASSWORD=$MONGODB_PASSWORD
+      - MONGO_HOSTNAME=mongodb
+      - MONGO_PORT=$MONGODB_PORT
+      - MONGODB_DBNAME=$MONGODB_DBNAME
+    ports:
+      - "3000:3000"
+    networks:
+      - martian-network
+
+  mongodb:
+    image: mongo:4.4.15
+    container_name: mongodb
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: $MONGODB_USER
+      MONGO_INITDB_ROOT_PASSWORD: $MONGODB_PASSWORD
+    ports:
+      - "27017:27017"
+    networks:
+      - martian-network  
+
+networks:
+  martian-network:
+    driver: bridge
