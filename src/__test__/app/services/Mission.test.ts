@@ -27,7 +27,7 @@ describe('Mission service', () => {
     expect(sut).toEqual(testResult);
   });
 
-  it('should return [["1 1 E"],["3 3 N LOST"], ["3 2 N"],["4 2 N"]]', async () => {
+  it('should return [["1 1 E"],["3 3 N LOST"], ["3 2 N"],["4 2 N"],["4 2 N"]]', async () => {
     const missionData: mission = {
       FieldSurface: ['5 3'],
       MissionCommands: [
@@ -35,11 +35,18 @@ describe('Mission service', () => {
         ['3 2 N', 'FRRFLLFFRRFLL'],
         ['3 2 N', 'FRRFLLFFRRFLL'],
         ['0 3 W', 'LLFFFRFLFL'],
+        ['0 3 W', 'RRRRLLLLLLFFFRFLFL'],
       ],
     };
 
     const testResult: missionResult = {
-      MissionResult: [['1 1 E'], ['3 3 N LOST'], ['3 2 N'], ['4 2 N']],
+      MissionResult: [
+        ['1 1 E'],
+        ['3 3 N LOST'],
+        ['3 2 N'],
+        ['4 2 N'],
+        ['4 2 N'],
+      ],
     };
 
     const sut = await new Mission(

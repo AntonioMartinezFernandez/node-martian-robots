@@ -19,17 +19,18 @@ export class Mission implements IMission {
   ) {}
 
   public async execute(): Promise<missionResult | Error> {
+    const errors: Error[] = [];
+    const robotCommands: parsedRobot[] = [];
+    const missionResults: finalRobotLocation[] = [];
+    const smellCommands: string[] = [];
+
     const surface = new MarsSurface(
       this._surfaceLimits,
       this._mission.FieldSurface,
     ).build();
     if (surface instanceof Error) return new Error(surface.message);
-
     if (!this._mission.MissionCommands)
       return new Error('Missed mission commands');
-
-    const errors: Error[] = [];
-    const robotCommands: parsedRobot[] = [];
 
     this._mission.MissionCommands.forEach((robot) => {
       const parsedRobotCommand = new Robot(robot).getParsedRobotCommand();
@@ -41,8 +42,6 @@ export class Mission implements IMission {
       }
     });
 
-    const missionResults: finalRobotLocation[] = [];
-    const smellCommands: string[] = [];
     robotCommands.forEach((robotCommand) => {
       if (
         robotCommand.position[0] < surface[0] ||
@@ -53,15 +52,16 @@ export class Mission implements IMission {
         errors.push(new Error('Invalid initial robot position value'));
       }
 
-      const missionResult = new RobotCommand(
+      const robotResult = new RobotCommand(
         surface,
         robotCommand,
         smellCommands,
       ).calculateFinalRobotLocation();
 
-      if (missionResult.smellCommand)
-        smellCommands.push(missionResult.smellCommand);
-      missionResults.push(missionResult.finalRobotLocation);
+      if (robotResult.smellCommand)
+        smellCommands.push(robotResult.smellCommand);
+
+      missionResults.push(robotResult.finalRobotLocation);
     });
 
     if (errors.length > 0) {
@@ -69,7 +69,7 @@ export class Mission implements IMission {
     }
 
     try {
-      this._DBrepository.save({ mission: this._mission, missionResults });
+      await this._DBrepository.save({ mission: this._mission, missionResults });
     } catch (error) {
       console.error(error);
     }

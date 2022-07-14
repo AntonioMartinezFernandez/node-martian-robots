@@ -7,7 +7,7 @@ import { Request, Response } from 'express';
 import { BaseController } from './base/BaseController';
 
 export class MissionController extends BaseController {
-  public checkService = (req: Request, res: Response) => {
+  public checkService = (_req: Request, res: Response) => {
     try {
       this.handleResponse(res, 200, { status: 'Service running' });
     } catch (error) {
@@ -41,7 +41,7 @@ export class MissionController extends BaseController {
     }
   };
 
-  public historicalData = async (req: Request, res: Response) => {
+  public historicalData = async (_req: Request, res: Response) => {
     try {
       const result = await new Historical(new MongodbMissionRepo()).getData();
 

@@ -7,16 +7,16 @@ Features:
 - Developed following SOLID principles
 - Developed following Clean Architecture principles
 - The app works with the example proposed in the challenge description
-- Minimum use of third party libraries
-- Unit and integration tests
-- Application run as a REST API
-- Persistence layer implemented with MongoDB and OnMemory
+- Coordinates and command length limits stablished as environment variables
+- Unit and integration tests (coverage up to 80%)
+- Solution implemented as a REST API server
+- Persistence layer implemented with MongoDB and InMemory
 - Shipped with Docker
 
 Requisites:
 
-- NodeJS
-- Docker & Docker compose
+- NodeJS >v14.0
+- Docker & Docker Compose
 
 ## Clone and install project
 

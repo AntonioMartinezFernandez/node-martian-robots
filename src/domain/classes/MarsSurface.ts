@@ -19,13 +19,13 @@ export class MarsSurface implements ISurface {
   }
 
   public build(): planetSurface | Error {
-    const surfaceSize = this._surfaceSize[0].split(' ');
+    const marsSurfaceSize = this._surfaceSize[0].split(' ');
 
     const surface: planetSurface = [
       this._minX,
       this._minY,
-      parseInt(surfaceSize[0]),
-      parseInt(surfaceSize[1]),
+      parseInt(marsSurfaceSize[0]),
+      parseInt(marsSurfaceSize[1]),
     ];
 
     if (!surface[2] || !surface[3]) {

@@ -38,8 +38,8 @@ export class RobotCommand implements IRobotCommand {
     finalRobotLocation: finalRobotLocation;
     smellCommand?: string;
   } {
-    for (let i = 0; i < this._robotCommand.length; i++) {
-      switch (this._robotCommand[i]) {
+    for (const order of this._robotCommand) {
+      switch (order) {
         case 'R':
           this.turnRight();
           break;
@@ -54,11 +54,10 @@ export class RobotCommand implements IRobotCommand {
           break;
       }
 
-      if (this._robotState === 'LOST') {
+      if (this._robotState !== '') {
         this._smellCommand = `${this._robotPositionX} ${this._robotPositionY} ${this._robotOrientation}`;
         this._smellCommands.push(this._smellCommand);
-
-        this._robotState = ' ' + this._robotState;
+        this._robotState = ` ${this._robotState}`;
         break;
       }
     }
@@ -113,22 +112,22 @@ export class RobotCommand implements IRobotCommand {
       case 'N':
         this._robotPositionY < this._maxSurfaceY
           ? this._robotPositionY++
-          : (this._robotState = 'LOST');
+          : this.robotLost();
         break;
       case 'S':
         this._robotPositionY > this._minSurfaceY
           ? this._robotPositionY--
-          : (this._robotState = 'LOST');
+          : this.robotLost();
         break;
       case 'E':
         this._robotPositionX < this._maxSurfaceX
           ? this._robotPositionX++
-          : (this._robotState = 'LOST');
+          : this.robotLost();
         break;
       case 'W':
         this._robotPositionX > this._minSurfaceX
           ? this._robotPositionX--
-          : (this._robotState = 'LOST');
+          : this.robotLost();
         break;
       default:
         break;
@@ -147,5 +146,9 @@ export class RobotCommand implements IRobotCommand {
     } else {
       return false;
     }
+  }
+
+  private robotLost() {
+    this._robotState = 'LOST';
   }
 }

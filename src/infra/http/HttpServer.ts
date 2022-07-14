@@ -47,7 +47,7 @@ export class HttpServer {
 
     this.server.use(
       '*',
-      function (req: express.Request, res: express.Response) {
+      function (_req: express.Request, res: express.Response) {
         res.sendStatus(404);
       },
     );

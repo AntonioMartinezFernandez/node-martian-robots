@@ -37,8 +37,8 @@ export class Robot implements IRobot {
     const command = this._missionCommand[1];
     if (command.length > parseInt(APP_MAX_COMMAND_LENGTH))
       return new Error('Command too long');
-    for (let i = 0; i < command.length; i++) {
-      if (command[i] !== 'R' && command[i] !== 'L' && command[i] !== 'F')
+    for (const order of command) {
+      if (order !== 'R' && order !== 'L' && order !== 'F')
         return new Error('Invalid robot command value');
     }
 
